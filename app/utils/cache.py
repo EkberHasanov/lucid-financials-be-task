@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from typing import Dict, Any, Optional
 from app.config import settings
 
@@ -10,7 +10,7 @@ class Cache:
 
 
     def set(self, key: str, value: Any) -> None:
-        expiry = datetime.now(datetime.timezone.utc) + timedelta(seconds=settings.CACHE_EXPIRY_SECONDS)
+        expiry = datetime.now(timezone.utc) + timedelta(seconds=settings.CACHE_EXPIRY_SECONDS)
         self._cache[key] = {
             "value": value,
             "expiry": expiry
@@ -22,7 +22,7 @@ class Cache:
             return None
         
         cached_data = self._cache[key]
-        if cached_data["expiry"] < datetime.now(datetime.timezone.utc):
+        if cached_data["expiry"] < datetime.now(timezone.utc):
             del self._cache[key]
             return None
         
