@@ -7,3 +7,5 @@ python-jose==3.4.0
 passlib==1.7.4
 bcrypt==4.3.0
 python-multipart==0.0.20
+pymysql==1.1.1
+pydantic[email]
